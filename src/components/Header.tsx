@@ -51,12 +51,13 @@ const Item = styled.li`
 `;
 
 const Search = styled(motion.form)`
-  color: white;
+  color: ${(props) => props.theme.white.lighter};
   display: flex;
   align-items: center;
   position: relative;
   cursor: pointer;
   svg {
+    fill: ${(props) => props.theme.white.lighter};
     height: 25px;
   }
 `;
@@ -66,7 +67,7 @@ const Circle = styled(motion.span)`
   width: 5px;
   height: 5px;
   border-radius: 5px;
-  bottom: -5px;
+  bottom: -10px;
   /* to the center */
   left: 0;
   right: 0;
@@ -84,16 +85,16 @@ const Input = styled(motion.input)<{$checkScroll: boolean}>`
   padding: 12px;
   padding-left: 40px;
   z-index: -1;
-  color: ${(props) => props.$checkScroll ? props.theme.white.lighter : props.theme.black };
+  color: ${(props) => props.theme.white.lighter};
   font-size: 14px;
   background-color: transparent;
   border: 1px solid;
-  border-color: ${(props) => props.$checkScroll ? props.theme.white.lighter : props.theme.black };
+  border-color: ${(props) => props.theme.white.lighter};
   border-radius: 5px;
   box-shadow: 0 0 5px 3px #00000010;
   outline: none;
   ::placeholder {
-    color: ${(props) => props.$checkScroll ? props.theme.white.lighter : props.theme.black };
+    color: ${(props) => props.theme.white.lighter};
   }
 `;
 
@@ -146,15 +147,9 @@ function Header() {
       if (scrollY.get() > 80) {
         setCheckScroll(true);
         navAnimation.start("scroll");
-        searchAnimation.start({
-          fill: "white",
-        });
       } else {
         setCheckScroll(false);
         navAnimation.start("top");
-        searchAnimation.start({
-          fill: "black",
-        });
       }
     });
   }, [scrollY, navAnimation, inputAnimation, searchAnimation]);
