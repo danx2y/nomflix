@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.js": "/nomflix/movie/static/js/main.a0ce6d83.js",
-    "static/media/NanumSquareNeoTTF-dEb.woff2": "/nomflix/movie/static/media/NanumSquareNeoTTF-dEb.8f5d88bdccdc1b03419d.woff2",
-    "static/media/NanumSquareNeoTTF-bRg.woff2": "/nomflix/movie/static/media/NanumSquareNeoTTF-bRg.8c19e413edbc38f2499a.woff2",
-    "static/media/NanumSquareNeoTTF-cBd.woff2": "/nomflix/movie/static/media/NanumSquareNeoTTF-cBd.79d2b7fd23d6a661eff0.woff2",
-    "static/media/NanumSquareNeoTTF-eHv.woff2": "/nomflix/movie/static/media/NanumSquareNeoTTF-eHv.94e1ff8cc8548100f79c.woff2",
-    "static/media/NanumSquareNeoTTF-aLt.woff2": "/nomflix/movie/static/media/NanumSquareNeoTTF-aLt.fbf1422cd5996eea15e1.woff2",
-    "static/media/no-image.svg": "/nomflix/movie/static/media/no-image.d4c91e378d0116071b794ef38529ec86.svg",
-    "index.html": "/nomflix/movie/index.html",
-    "main.a0ce6d83.js.map": "/nomflix/movie/static/js/main.a0ce6d83.js.map"
+    "main.js": "/nomflix/static/js/main.bef0faf4.js",
+    "static/media/NanumSquareNeoTTF-dEb.woff2": "/nomflix/static/media/NanumSquareNeoTTF-dEb.8f5d88bdccdc1b03419d.woff2",
+    "static/media/NanumSquareNeoTTF-bRg.woff2": "/nomflix/static/media/NanumSquareNeoTTF-bRg.8c19e413edbc38f2499a.woff2",
+    "static/media/NanumSquareNeoTTF-cBd.woff2": "/nomflix/static/media/NanumSquareNeoTTF-cBd.79d2b7fd23d6a661eff0.woff2",
+    "static/media/NanumSquareNeoTTF-eHv.woff2": "/nomflix/static/media/NanumSquareNeoTTF-eHv.94e1ff8cc8548100f79c.woff2",
+    "static/media/NanumSquareNeoTTF-aLt.woff2": "/nomflix/static/media/NanumSquareNeoTTF-aLt.fbf1422cd5996eea15e1.woff2",
+    "static/media/no-image.svg": "/nomflix/static/media/no-image.d4c91e378d0116071b794ef38529ec86.svg",
+    "index.html": "/nomflix/index.html",
+    "main.bef0faf4.js.map": "/nomflix/static/js/main.bef0faf4.js.map"
   },
   "entrypoints": [
-    "static/js/main.a0ce6d83.js"
+    "static/js/main.bef0faf4.js"
   ]
 }
