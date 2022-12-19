@@ -1,19 +1,23 @@
 const BASE_PATH = "https://api.themoviedb.org/3";
 const API_KEY = "d08e61e77e5d21f339d4ac91e66a2609";
 
+interface IGenre {
+  id: number;
+  name: string;
+}
+
 interface IMovie {
   id: number;
   backdrop_path: string;
   poster_path: string;
   title: string;
   overview: string;
+  original_title: string;
+  genre_ids: number[];
+  release_date: string;
 }
 
-export interface IFetchMoviesNowPlaying {
-  dates: {
-    maximum: string;
-    minimum: string;
-  };
+export interface IFetchMovies {
   page: number;
   results: IMovie[];
   total_pages: number;
@@ -22,6 +26,12 @@ export interface IFetchMoviesNowPlaying {
 
 export function fetchMoviesNowPlaying() {
   return fetch(`${BASE_PATH}/movie/now_playing?api_key=${API_KEY}&language=ko-KR`).then(
+    (response) => response.json()
+  );
+}
+
+export function fetchMoviesPopular() {
+  return fetch(`${BASE_PATH}/movie/popular?api_key=${API_KEY}&language=ko-KR`).then(
     (response) => response.json()
   );
 }
