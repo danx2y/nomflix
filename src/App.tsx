@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./components/Header";
-import Home from "./routes/Home";
+import Movie from "./routes/Movie";
 import Search from "./routes/Search";
-import Tv from "./routes/Tv";
+import Program from "./routes/Program";
 
 function App() {
   return (
@@ -10,13 +10,13 @@ function App() {
       <Header />
       <Switch>
         <Route path="/tv">
-          <Tv />
+          <Program />
         </Route>
         <Route path="/search">
           <Search />
         </Route>
-        <Route path={["/", "/movies/:movieId"]}>
-          <Home />
+        <Route path={["/movie", "/movie/:movieId"]}>
+          <Movie />
         </Route>
       </Switch>
     </Router>

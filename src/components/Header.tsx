@@ -26,6 +26,7 @@ const Logo = styled(motion.svg)`
   width: 100px;
   height: 40px;
   fill: ${(props) => props.theme.red};
+  cursor: pointer;
   path {
     stroke-width: 2px;
     stroke: #880000;
@@ -103,8 +104,9 @@ const logoVariants = {
     fillOpacity: 1,
   },
   active: {
-    fillOpacity: [0, 1, 0],
+    fillOpacity: [1, 0, 1],
     transition: {
+      duration: 2,
       repeat: Infinity,
     },
   },
@@ -126,7 +128,7 @@ interface IForm {
 function Header() {
   const [checkScroll, setCheckScroll] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const homeMatch = useRouteMatch("/");
+  const movieMatch = useRouteMatch("/movie");
   const tvMatch = useRouteMatch("/tv");
   const inputAnimation = useAnimation();
   const navAnimation = useAnimation();
@@ -167,18 +169,19 @@ function Header() {
           animate="normal"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1426.99 383.36"
+          onClick={() => history.push(`/movie`)}
         >
           <motion.path d="M1102 347.85c20.03 1.54 40.03 3.18 60 4.96V0h-60v347.85ZM135 216.95 56.86 0H0v383.36c19.96-2.85 39.96-5.57 60-8.18v-208.1l69.4 199.36c21.83-2.53 43.69-4.93 65.6-7.18V0h-60v216.95ZM683 333l60-.01V196h81v-59h-81V60h108V0H683v333zM1426.99 0h-66l-43.51 100.85L1278.38 0h-65.01l69.86 180.21L1206.96 357c21.1 2.06 42.15 4.25 63.16 6.57l44.36-102.79 43.93 113.31c22.88 2.94 45.71 6.01 68.49 9.26l.09-.04-78.28-201.89L1426.99 0ZM949 0h-60v336.07c54.56 1.88 108.89 4.63 163 8.25v-59.21a5144.27 5144.27 0 0 0-103-5.83V0ZM253 353.52c22.57-1.87 117.77-9.68 167-12.53V0H253v353.52ZM314 61h46v225.3l-46 3.71V61ZM551.53 165.48 513.63 0H459v339.59c15.5-.65 34.55-1.42 55-2.21V170.04l19.47 86.64.16.32h35.98L590 167.91v167.6c20.18-.64 39.18-1.17 55-1.47V0h-55l-38.47 165.48Z" />
         </Logo>
         <Items>
           <Item>
-            <Link to="/">
-              홈 {homeMatch?.isExact && <Circle layoutId="circle" />}
+            <Link to="/movie">
+              영화 {movieMatch?.isExact && <Circle layoutId="circle" />}
             </Link>
           </Item>
           <Item>
           <Link to="/tv">
-              TV 프로그램 {tvMatch && <Circle layoutId="circle" />}
+              프로그램 {tvMatch && <Circle layoutId="circle" />}
             </Link>
           </Item>
         </Items>

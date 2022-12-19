@@ -6,7 +6,7 @@ interface IGenre {
   name: string;
 }
 
-interface IMovie {
+interface IVideo {
   id: number;
   backdrop_path: string;
   poster_path: string;
@@ -17,21 +17,21 @@ interface IMovie {
   release_date: string;
 }
 
-export interface IFetchMovies {
+export interface IFetchVideos {
   page: number;
-  results: IMovie[];
+  results: IVideo[];
   total_pages: number;
   total_results: number;
 }
 
-export function fetchMoviesNowPlaying() {
-  return fetch(`${BASE_PATH}/movie/now_playing?api_key=${API_KEY}&language=ko-KR`).then(
+export function fetchMovies(type: string) {
+  return fetch(`${BASE_PATH}/movie/${type}?api_key=${API_KEY}&language=ko-KR`).then(
     (response) => response.json()
   );
 }
 
-export function fetchMoviesPopular() {
-  return fetch(`${BASE_PATH}/movie/popular?api_key=${API_KEY}&language=ko-KR`).then(
+export function fetchPrograms(type: string) {
+  return fetch(`${BASE_PATH}/tv/${type}?api_key=${API_KEY}&language=ko-KR`).then(
     (response) => response.json()
   );
 }

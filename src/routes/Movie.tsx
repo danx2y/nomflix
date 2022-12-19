@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import { AnimatePresence } from "framer-motion";
 import { useQuery } from "react-query";
 import { makeImagePath } from "../utils";
-import { IFetchMovies, fetchMoviesNowPlaying } from "../api";
+import { IFetchVideos, fetchMovies } from "../api";
 import Slider from "../components/Slider";
 
 const Wrapper = styled.div`
@@ -42,37 +41,33 @@ const Overview = styled.p`
   font-size: 20px;
   padding: 0 25%;
   line-height: 1.8;
+  font-style: italic;
   text-indent: 20px;
   text-align: justify;
   text-shadow: 0 0 3px #00000050;
 `;
 
 function Home() {
-  const { data: moviesNowPlaying, isLoading: moviesNowPlayingIsLoading } = useQuery<IFetchMovies>(
+  const { data, isLoading } = useQuery<IFetchVideos>(
     ["movies", "nowPlaying"], 
-    fetchMoviesNowPlaying
+    () => fetchMovies("now_playing")
   );
-  /* const { data: moviesPopular, isLoading: moviesPopularIsLoading } = useQuery<IFetchMovies>(
-    ["movies", "Popular"], 
-    fetchMoviesPopular
-  ); */
-
   return (
     <Wrapper>
-      {moviesNowPlayingIsLoading /* && moviesPopularIsLoading */ ? (
+      {isLoading ? (
         <Loader>Loading...</Loader>
       ) : (
         <>
           <Banner 
-            bgphoto={makeImagePath(moviesNowPlaying?.results[0].backdrop_path || "")}
+            bgphoto={makeImagePath(data?.results[0].backdrop_path || "")}
           >
-            <Title>{moviesNowPlaying?.results[0].title}</Title>
-            <Overview>{moviesNowPlaying?.results[0].overview}</Overview>
+            <Title>{data?.results[0].title}</Title>
+            <Overview>{data?.results[0].overview}</Overview>
           </Banner>
-          <h1 style={{color: "white"}}>최신 영화</h1>
-          <AnimatePresence>
-            <Slider data={moviesNowPlaying} isLoading={moviesNowPlayingIsLoading}></Slider>
-          </AnimatePresence>
+          <Slider media={"movie"} type={"now_playing"} title={"최신 영화"} />
+          <Slider media={"movie"} type={"popular"} title={"인기 영화"} />
+          <Slider media={"movie"} type={"top_rated"} title={"최고평점 영화"} />
+          <Slider media={"movie"} type={"upcoming"} title={"개봉예정 영화"} />
         </>
       )}
     </Wrapper>
