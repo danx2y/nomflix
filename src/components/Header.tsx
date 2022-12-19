@@ -11,9 +11,10 @@ const Nav = styled(motion.nav)`
   position: fixed;
   width: 100%;
   top: 0;
-  font-size: 14px;
+  font-size: 16px;
   padding: 20px 60px;
   color: white;
+  z-index: 3;
 `;
 
 const Col = styled.div`
@@ -59,7 +60,7 @@ const Search = styled(motion.form)`
   cursor: pointer;
   svg {
     fill: ${(props) => props.theme.white.lighter};
-    height: 25px;
+    height: 20px;
   }
 `;
 
@@ -87,7 +88,7 @@ const Input = styled(motion.input)<{$checkScroll: boolean}>`
   padding-left: 40px;
   z-index: -1;
   color: ${(props) => props.theme.white.lighter};
-  font-size: 14px;
+  font-size: 16px;
   background-color: transparent;
   border: 1px solid;
   border-color: ${(props) => props.theme.white.lighter};
@@ -104,7 +105,7 @@ const logoVariants = {
     fillOpacity: 1,
   },
   active: {
-    fillOpacity: [1, 0, 1],
+    scale: [1, 1.05, 1],
     transition: {
       duration: 2,
       repeat: Infinity,
@@ -114,14 +115,14 @@ const logoVariants = {
 
 const navVariants = {
   top: {
-    backgroundColor: "rgba(0, 0, 0, 0)",
+    backgroundColor: "rgba(20, 20, 20, 0)",
   },
   scroll: {
-    backgroundColor: "rgba(0, 0, 0, 1)",
+    backgroundColor: "rgba(20, 20, 20, 1)",
   },
 };
 
-interface IForm {
+export interface IForm {
   keyword: string;
 }
 
@@ -129,7 +130,7 @@ function Header() {
   const [checkScroll, setCheckScroll] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const movieMatch = useRouteMatch("/movie");
-  const tvMatch = useRouteMatch("/tv");
+  const programMatch = useRouteMatch("/program");
   const inputAnimation = useAnimation();
   const navAnimation = useAnimation();
   const searchAnimation = useAnimation();
@@ -156,9 +157,10 @@ function Header() {
     });
   }, [scrollY, navAnimation, inputAnimation, searchAnimation]);
   const history = useHistory();
-  const { register, handleSubmit } = useForm<IForm>();
+  const { register, setValue, handleSubmit } = useForm<IForm>();
   const onValid = (data: IForm) => {
     history.push(`/search?keyword=${data.keyword}`);
+    setValue("keyword", "");
   };
   return (
     <Nav variants={navVariants} animate={navAnimation} initial={"top"}>
@@ -180,8 +182,8 @@ function Header() {
             </Link>
           </Item>
           <Item>
-          <Link to="/tv">
-              프로그램 {tvMatch && <Circle layoutId="circle" />}
+          <Link to="/program">
+              프로그램 {programMatch && <Circle layoutId="circle" />}
             </Link>
           </Item>
         </Items>
@@ -193,14 +195,12 @@ function Header() {
         >
           <motion.svg
             onClick={toggleSearch}
-            animate={{ x: searchOpen ? -215 : 0 }}
-            viewBox="0 0 20 20"
+            animate={{ x: searchOpen ? -230 : 0 }}
+            viewBox="0 0 512 512"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              fillRule="evenodd"
-              d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-              clipRule="evenodd"
+              d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"
             ></path>
           </motion.svg>
           <>
@@ -208,7 +208,7 @@ function Header() {
               {...register("keyword", { required: true, minLength: 2 })}
               animate={inputAnimation}
               initial={{ scaleX: 0 }}
-              placeholder="영화, TV프로그램을 찾아보세요."
+              placeholder="영화, 프로그램을 찾아보세요."
               $checkScroll={checkScroll}
             />
           </>

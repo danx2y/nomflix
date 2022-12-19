@@ -1,10 +1,8 @@
 import { motion, AnimatePresence, useScroll } from "framer-motion";
 import { useHistory, useRouteMatch } from "react-router-dom";
-import { useState } from "react";
-import { useQuery } from "react-query";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import useWindowDimensions, { makeImagePath } from "../utils";
-import { IFetchVideos, fetchMovies, fetchPrograms } from "../api";
 import noImage from "../images/no-image.svg";
 
 const Wrapper = styled.div`
@@ -16,6 +14,12 @@ const Title = styled.div`
   font-weight: 600;
   margin: 0 0 20px 10px;
   color: ${(props) => props.theme.white.darker};
+  span {
+    margin-left: 10px;
+    font-size: 20px;
+    ${(props) => props.theme.white.lighter};
+    font-weight: 800;
+  }
 `;
 
 const Row = styled(motion.div)`
@@ -105,7 +109,6 @@ const BigMovie = styled(motion.div)`
 
 const BigCover = styled.div<{ bgphoto: string }>`
   width: 100%;
-  background: #141414;
   background-image: linear-gradient(to bottom, #00000010, #141414), url(${(props) => props.bgphoto});
   background-size: cover;
   background-position: center center;
@@ -119,7 +122,6 @@ const BigTitle = styled.h3`
   position: relative;
   top: -80px;
   font-weight: 800;
-  line-height: 1.2;
 `;
 
 const BigOverview = styled.p`
@@ -140,8 +142,8 @@ const boxVariants = {
     scale: 1.3,
     y: -80,
     transition: {
-      delay: 1,
-      duration: 1,
+      delay: 0.5,
+      duaration: 0.1,
       type: "tween",
     },
   },
@@ -161,44 +163,46 @@ const infoVariants = {
 const offset = 6;
 
 interface ISliderProps {
+  data: any;
   media: string;
-  type: string;
   title: string;
+  keyword: string;
 }
 
-function Slider({media, type, title}:ISliderProps) {
-  const { data } = useQuery<IFetchVideos>(
-    [media, type],
-    () => media === "movie" ? fetchMovies(type) : fetchPrograms(type)
-  );
+function ResultsSlider({data, media, title, keyword}:ISliderProps) {
   const history = useHistory();
   const { scrollY } = useScroll();
   const [index, setIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
-  const toggleLeaving = () => setLeaving((prev) => !prev);
+  const resetLeaving = () => setLeaving(false);
+  const activateLeaving = () => setLeaving(true);
   const totalMovies = data?.results.length as number;
-  const maxIndex = (Math.floor(totalMovies / offset) - 1) as number;
+  const maxIndex = (Math.ceil(totalMovies / offset) - 1) as number;
   const incraseIndex = () => {
-    if (data) {
-      if (leaving) return;
-      toggleLeaving();
-      setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
-    }
+    activateLeaving();
+    setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
+    setTimeout(resetLeaving, 1000);
   };
-  const bigMatch = useRouteMatch<{ movieId: string }>(`/${media}/${type}/:movieId`);
+  const bigMatch = useRouteMatch<{ movieId: string }>(`/search/:movieId`);
   const clickedMovie =
     bigMatch?.params.movieId &&
-    data?.results.find((movie) => movie.id === +bigMatch.params.movieId);
-  const onOverlayClick = () => history.push(`/${media}`);
+    data?.results.find((movie: any) => movie.id === +bigMatch.params.movieId);
+  const onOverlayClick = () => history.push(`/search?keyword=${keyword}`);
   const onBoxClicked = (movieId: number) => {
-    history.push(`/${media}/${type}/${movieId}`);
+    history.push(`/search/${movieId}?keyword=${keyword}`);
   };
   const width = useWindowDimensions();
+  useEffect(() => {
+    setIndex(0);
+  }, [keyword]);
   return (
     <>
-      <Wrapper style={{top: -200}}>
-        <Title>{title}</Title>
-        <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
+      <Wrapper style={{top: 20}}>
+        <Title>
+          {title}
+          <span>{data?.results.length}건</span>
+        </Title>
+        <AnimatePresence initial={false}>
           <Row
             initial={{ x: width + 10 }}
             animate={{ x: 0 }}
@@ -208,16 +212,16 @@ function Slider({media, type, title}:ISliderProps) {
           > 
             {data?.results
               .slice(offset * index, offset * index + offset)
-              .map((movie) => (
+              .map((movie: any) => (
                 <Box
-                  layoutId={title + "_" + movie.id + "_" + type}
-                  key={movie.id + "_" + type}
+                  layoutId={title + "_" + movie.id}
+                  key={movie.id}
                   whileHover="hover"
                   initial="normal"
                   variants={boxVariants}
                   onClick={() => onBoxClicked(movie.id)}
                   transition={{ type: "tween" }}
-                  bgphoto={makeImagePath(movie.backdrop_path, "w500")}
+                  bgphoto={!movie.backdrop_path ? noImage : makeImagePath(movie.backdrop_path, "w500")}
                 >
                   <Info variants={infoVariants}>
                     <h4>
@@ -259,7 +263,7 @@ function Slider({media, type, title}:ISliderProps) {
             {clickedMovie && (
             <BigMovie
               style={{ top: scrollY.get() + 100 }}
-              layoutId={title + "_" + bigMatch.params.movieId + "_" + type}
+              layoutId={title + "_" + bigMatch.params.movieId}
             >
               <BigCover
                 bgphoto={!clickedMovie.backdrop_path ? noImage : makeImagePath(clickedMovie.backdrop_path, "w780")}
@@ -289,4 +293,4 @@ function Slider({media, type, title}:ISliderProps) {
   )
 }
 
-export default Slider;
+export default ResultsSlider;

@@ -1,6 +1,6 @@
 {
   "homepage": "https://daeb2a.github.io/nomflix/movie",
-  "name": "react-masterclass",
+  "name": "nomflix",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

@@ -9,7 +9,7 @@ function App() {
     <Router basename="nomflix">
       <Header />
       <Switch>
-        <Route path="/tv">
+        <Route path={["/program", "/program/:movieId"]}>
           <Program />
         </Route>
         <Route path="/search">

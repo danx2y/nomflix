@@ -5,8 +5,7 @@ import { IFetchVideos, fetchMovies } from "../api";
 import Slider from "../components/Slider";
 
 const Wrapper = styled.div`
-  background: black;
-  padding-bottom: 200px;
+  background: #070707;
 `;
 
 const Loader = styled.div`
@@ -22,7 +21,7 @@ const Banner = styled.div<{ bgphoto: string }>`
   flex-direction: column;
   justify-content: center;
   padding: 60px;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 1)),
+  background-image: linear-gradient(rgba(7, 7, 7, 0.3), rgba(7, 7, 7, 1)),
     url(${(props) => props.bgphoto});
   background-size: cover;
 `;
@@ -47,7 +46,7 @@ const Overview = styled.p`
   text-shadow: 0 0 3px #00000050;
 `;
 
-function Home() {
+function Movie() {
   const { data, isLoading } = useQuery<IFetchVideos>(
     ["movies", "nowPlaying"], 
     () => fetchMovies("now_playing")
@@ -73,4 +72,4 @@ function Home() {
     </Wrapper>
   );
 }
-  export default Home;
+export default Movie;

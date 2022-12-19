@@ -92,7 +92,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'NanumSquareNeo', sans-serif;
     background: #ffffff;
     color:${(props) => props.theme.white.darker};
-    background-color: black;
+    background-color: #141414;
     line-height: 1;
   }
   a {

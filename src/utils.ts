@@ -1,3 +1,25 @@
+import { useEffect, useState } from 'react';
+
+function getWindowDimensions() {
+  const { innerWidth: width } = window;
+  return width;
+}
+function useWindowDimensions() {
+  const [windowDimensions, setWindowDimensions] = useState(
+    getWindowDimensions()
+  );
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  return windowDimensions;
+}
+
+export default useWindowDimensions;
+
 export function makeImagePath(id: string, format?: string) {
-    return `https://image.tmdb.org/t/p/${format ? format : "original"}/${id}`;
-  }
+  return `https://image.tmdb.org/t/p/${format ? format : "original"}/${id}`;
+}
