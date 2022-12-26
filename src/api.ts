@@ -16,6 +16,8 @@ interface IVideo {
   original_title: string;
   original_name: string;
   genre_ids: number[];
+  vote_average: number;
+  release_date: string;
 }
 
 export interface IFetchVideos {

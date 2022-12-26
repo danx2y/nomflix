@@ -115,6 +115,24 @@ const BigCover = styled.div<{ bgphoto: string }>`
   height: 400px;
 `;
 
+const BigCategory = styled.div`
+  position: absolute;
+  margin: 20px 30px;
+  display: flex;
+  gap: 10px;
+  p {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #ff7b00;
+    border: solid 1px #ffffff99;
+    font-size: 14px;
+    font-weight: 800;
+  }
+  p:last-child {
+    background-color: #880000;
+  }
+`;
+
 const BigTitle = styled.h3`
   color: ${(props) => props.theme.white.lighter};
   padding: 10px 30px 20px 30px;
@@ -139,11 +157,11 @@ const boxVariants = {
     scale: 1,
   },
   hover: {
-    scale: 1.3,
-    y: -80,
+    scale: 1.2,
+    y: -40,
     transition: {
-      delay: 0.5,
-      duaration: 0.1,
+      delay: 0,
+      duration: 0.5,
       type: "tween",
     },
   },
@@ -153,7 +171,7 @@ const infoVariants = {
   hover: {
     opacity: 1,
     transition: {
-      delay: 0.5,
+      delay: 0,
       duration: 0.1,
       type: "tween",
     },
@@ -265,6 +283,10 @@ function ResultsSlider({data, media, title, keyword}:ISliderProps) {
               style={{ top: scrollY.get() + 100 }}
               layoutId={title + "_" + bigMatch.params.movieId}
             >
+              <BigCategory>
+                {!clickedMovie.release_date ? "" : <p>최초공개 {clickedMovie.release_date}</p>}
+                {!clickedMovie.vote_average ? "" : <p>평점 {clickedMovie.vote_average}</p>}
+              </BigCategory>
               <BigCover
                 bgphoto={!clickedMovie.backdrop_path ? noImage : makeImagePath(clickedMovie.backdrop_path, "w780")}
               />
