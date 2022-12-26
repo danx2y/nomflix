@@ -136,10 +136,18 @@ const BigCategory = styled.div`
 const BigTitle = styled.h3`
   color: ${(props) => props.theme.white.lighter};
   padding: 10px 30px 20px 30px;
-  font-size: 46px;
+  font-size: 42px;
   position: relative;
   top: -80px;
   font-weight: 800;
+  p {
+    position: absolute;
+    left: 30px;
+    top: -40px;
+    opacity: 0.3;
+    font-style: italic;
+    font-size: 36px;
+  }
 `;
 
 const BigOverview = styled.p`
@@ -298,7 +306,16 @@ function ResultsSlider({data, media, title, keyword}:ISliderProps) {
                   ? clickedMovie.name 
                   : "API에서 데이터를 찾을 수 없습니다."
                 }
-                </BigTitle>
+                <p>
+                  {
+                    media === "movie" 
+                    ? clickedMovie.original_title 
+                    : media === "program"
+                    ? clickedMovie.original_name 
+                    : "API에서 데이터를 찾을 수 없습니다."
+                  }
+                </p>
+              </BigTitle>
               <BigOverview>
                 {
                   !clickedMovie.overview 
