@@ -121,13 +121,13 @@ const BigCategory = styled.div`
   p {
     padding: 5px 10px;
     border-radius: 5px;
-    background-color: #ff7b00;
+    background-color: #880000;
     border: solid 1px #ffffff99;
     font-size: 14px;
     font-weight: 800;
   }
   p:last-child {
-    background-color: #880000;
+    background-color: #ff7b00;
   }
 `;
 
