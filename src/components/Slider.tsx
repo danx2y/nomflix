@@ -244,7 +244,7 @@ function Slider({media, type, title}:ISliderProps) {
                   variants={boxVariants}
                   onClick={() => onBoxClicked(movie.id)}
                   transition={{ type: "tween" }}
-                  bgphoto={makeImagePath(movie.backdrop_path, "w500")}
+                  bgphoto={!movie.backdrop_path ? noImage : makeImagePath(movie.backdrop_path, "w500")}
                 >
                   <Info variants={infoVariants}>
                     <h4>

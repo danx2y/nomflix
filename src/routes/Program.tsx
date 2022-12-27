@@ -58,10 +58,10 @@ function Program() {
       ) : (
         <>
           <Banner 
-            bgphoto={makeImagePath(data?.results[3].backdrop_path || "")}
+            bgphoto={makeImagePath(data?.results[2].backdrop_path || "")}
           >
-            <Title>{data?.results[3].name}</Title>
-            <Overview>{data?.results[3].overview}</Overview>
+            <Title>{data?.results[2].name}</Title>
+            <Overview>{data?.results[2].overview}</Overview>
           </Banner>
           <Slider media={"program"} type={"on_the_air"} title={"현재 방영 프로그램"} />
           <Slider media={"program"} type={"airing_today"} title={"오늘 방영 프로그램"} />
