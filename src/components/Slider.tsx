@@ -10,6 +10,7 @@ import noImage from "../images/no-image.svg";
 const Wrapper = styled.div`
   position: relative;
   height: 300px;
+  overflow-x: hidden;
 `;
 
 const Title = styled.div`
@@ -146,6 +147,7 @@ const BigTitle = styled.h3`
     opacity: 0.3;
     font-style: italic;
     font-size: 36px;
+    padding-right: 30px;
   }
 `;
 

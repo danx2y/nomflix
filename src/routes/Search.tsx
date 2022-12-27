@@ -7,10 +7,11 @@ import { IForm } from "../components/Header";
 import styled from "styled-components";
 import { useEffect } from "react";
 import ResultsSlider from "../components/ResultsSlider";
+import { Helmet } from "react-helmet";
 
 const Wrapper = styled.form`
   width: 100vw;
-  height: 35vh;
+  height: 30vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,7 +20,7 @@ const Wrapper = styled.form`
 
 const IconContainer = styled(motion.div)`
   background: ${(props) => props.theme.red};
-  padding: 19.5px;
+  padding: 17px;
   border: solid 1px #ffffff;
   cursor: pointer;
   svg {
@@ -29,8 +30,8 @@ const IconContainer = styled(motion.div)`
 `;
 
 const InputSearch = styled.input`
-  font-size: 24px;
-  padding: 24px;
+  font-size: 22px;
+  padding: 22px;
   font-weight: 600;
   outline: none;
 `;
@@ -80,11 +81,15 @@ function Search() {
   useEffect(() =>  {
     movieRefetch();
     programRefetch();
-  }, [keyword]);
+  }, [keyword, movieRefetch, programRefetch]);
   const movieResultsLength = movieResults?.results.length as number;
   const programResultsLength = programResults?.results.length as number;
   return (
     <>
+      <Helmet>
+        <title>놈플릭스 - 검색</title>
+        <link rel="icon" type="image/png" href="favicon.ico" sizes="16x16" />
+      </Helmet>
       <Wrapper onSubmit={handleSubmit(onValid)}>
         <InputSearch 
           {...register("keyword", { 

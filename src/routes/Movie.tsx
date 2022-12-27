@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import { makeImagePath } from "../utils";
 import { IFetchVideos, fetchMovies } from "../api";
 import Slider from "../components/Slider";
+import { Helmet } from "react-helmet";
 
 const Wrapper = styled.div`
   background: #070707;
@@ -52,24 +53,30 @@ function Movie() {
     () => fetchMovies("now_playing")
   );
   return (
-    <Wrapper>
-      {isLoading ? (
-        <Loader>Loading...</Loader>
-      ) : (
-        <>
-          <Banner 
-            bgphoto={makeImagePath(data?.results[0].backdrop_path || "")}
-          >
-            <Title>{data?.results[0].title}</Title>
-            <Overview>{data?.results[0].overview}</Overview>
-          </Banner>
-          <Slider media={"movie"} type={"now_playing"} title={"최신 영화"} />
-          <Slider media={"movie"} type={"popular"} title={"인기 영화"} />
-          <Slider media={"movie"} type={"top_rated"} title={"최고평점 영화"} />
-          <Slider media={"movie"} type={"upcoming"} title={"개봉예정 영화"} />
-        </>
-      )}
-    </Wrapper>
+    <>
+      <Helmet>
+        <title>놈플릭스 - 영화</title>
+        <link rel="icon" type="image/png" href="favicon.ico" sizes="16x16" />
+      </Helmet>
+      <Wrapper>
+        {isLoading ? (
+          <Loader>Loading...</Loader>
+        ) : (
+          <>
+            <Banner 
+              bgphoto={makeImagePath(data?.results[0].backdrop_path || "")}
+            >
+              <Title>{data?.results[0].title}</Title>
+              <Overview>{data?.results[0].overview}</Overview>
+            </Banner>
+            <Slider media={"movie"} type={"now_playing"} title={"최신 영화"} />
+            <Slider media={"movie"} type={"popular"} title={"인기 영화"} />
+            <Slider media={"movie"} type={"top_rated"} title={"최고평점 영화"} />
+            <Slider media={"movie"} type={"upcoming"} title={"개봉예정 영화"} />
+          </>
+        )}
+      </Wrapper>
+    </>
   );
 }
 export default Movie;

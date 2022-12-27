@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import { makeImagePath } from "../utils";
 import { IFetchVideos, fetchPrograms } from "../api";
 import Slider from "../components/Slider";
+import { Helmet } from "react-helmet";
 
 const Wrapper = styled.div`
   background: #070707;
@@ -52,24 +53,30 @@ function Program() {
     () => fetchPrograms("top_rated")
   );
   return (
-    <Wrapper>
-      {isLoading ? (
-        <Loader>Loading...</Loader>
-      ) : (
-        <>
-          <Banner 
-            bgphoto={makeImagePath(data?.results[2].backdrop_path || "")}
-          >
-            <Title>{data?.results[2].name}</Title>
-            <Overview>{data?.results[2].overview}</Overview>
-          </Banner>
-          <Slider media={"program"} type={"on_the_air"} title={"현재 방영 프로그램"} />
-          <Slider media={"program"} type={"airing_today"} title={"오늘 방영 프로그램"} />
-          <Slider media={"program"} type={"top_rated"} title={"최고평점 프로그램"} />
-          <Slider media={"program"} type={"popular"} title={"인기 프로그램"} />
-        </>
-      )}
-    </Wrapper>
+    <>
+      <Helmet>
+        <title>놈플릭스 - 프로그램</title>
+        <link rel="icon" type="image/png" href="favicon.ico" sizes="16x16" />
+      </Helmet>
+      <Wrapper>
+        {isLoading ? (
+          <Loader>Loading...</Loader>
+        ) : (
+          <>
+            <Banner 
+              bgphoto={makeImagePath(data?.results[2].backdrop_path || "")}
+            >
+              <Title>{data?.results[2].name}</Title>
+              <Overview>{data?.results[2].overview}</Overview>
+            </Banner>
+            <Slider media={"program"} type={"on_the_air"} title={"현재 방영 프로그램"} />
+            <Slider media={"program"} type={"airing_today"} title={"오늘 방영 프로그램"} />
+            <Slider media={"program"} type={"top_rated"} title={"최고평점 프로그램"} />
+            <Slider media={"program"} type={"popular"} title={"인기 프로그램"} />
+          </>
+        )}
+      </Wrapper>
+    </>
   );
 }
 export default Program;
