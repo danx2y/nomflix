@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/nomflix/static/js/main.5756c11f.js",
+    "main.js": "/nomflix/static/js/main.d61e7c00.js",
     "static/media/NanumSquareNeoTTF-dEb.woff2": "/nomflix/static/media/NanumSquareNeoTTF-dEb.8f5d88bdccdc1b03419d.woff2",
     "static/media/NanumSquareNeoTTF-bRg.woff2": "/nomflix/static/media/NanumSquareNeoTTF-bRg.8c19e413edbc38f2499a.woff2",
     "static/media/NanumSquareNeoTTF-cBd.woff2": "/nomflix/static/media/NanumSquareNeoTTF-cBd.79d2b7fd23d6a661eff0.woff2",
@@ -8,9 +8,9 @@
     "static/media/NanumSquareNeoTTF-aLt.woff2": "/nomflix/static/media/NanumSquareNeoTTF-aLt.fbf1422cd5996eea15e1.woff2",
     "static/media/no-image.svg": "/nomflix/static/media/no-image.d4c91e378d0116071b794ef38529ec86.svg",
     "index.html": "/nomflix/index.html",
-    "main.5756c11f.js.map": "/nomflix/static/js/main.5756c11f.js.map"
+    "main.d61e7c00.js.map": "/nomflix/static/js/main.d61e7c00.js.map"
   },
   "entrypoints": [
-    "static/js/main.5756c11f.js"
+    "static/js/main.d61e7c00.js"
   ]
 }
