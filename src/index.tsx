@@ -94,6 +94,7 @@ const GlobalStyle = createGlobalStyle`
     color:${(props) => props.theme.white.darker};
     background-color: #141414;
     line-height: 1;
+    overflow-x: hidden;
   }
   a {
     text-decoration: none;

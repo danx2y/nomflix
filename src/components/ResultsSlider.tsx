@@ -8,13 +8,12 @@ import noImage from "../images/no-image.svg";
 const Wrapper = styled.div`
   position: relative;
   height: 300px;
-  overflow-x: hidden;
 `;
 
 const Title = styled.div`
   font-size: 24px;
   font-weight: 600;
-  margin: 0 0 20px 10px;
+  margin: 0 0.5vw 20px 0.5vw;
   color: ${(props) => props.theme.white.darker};
   span {
     margin-left: 10px;
@@ -26,7 +25,7 @@ const Title = styled.div`
 
 const Row = styled(motion.div)`
   display: grid;
-  gap: 5px;
+  gap: 10px;
   grid-template-columns: repeat(6, 1fr);
   position: absolute;
   width: 100vw;
@@ -51,9 +50,13 @@ const Box = styled(motion.div)<{ bgphoto: string }>`
 const ArrowBtn = styled(motion.div)`
   position: absolute;
   background-color: #00000070;
-  height: 200px;
+  height: 50px;
   width: 50px;
-  right: 0;
+  border-radius: 25px;
+  border: solid 1px #ffffff50;
+  padding: 15px;
+  top: 120px;
+  right: 1vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -168,10 +171,10 @@ const boxVariants = {
     scale: 1,
   },
   hover: {
-    scale: 1.2,
-    y: -40,
+    scale: 1.1,
+    y: -20,
     transition: {
-      delay: 0,
+      delay: 0.3,
       duration: 0.5,
       type: "tween",
     },
@@ -182,8 +185,8 @@ const infoVariants = {
   hover: {
     opacity: 1,
     transition: {
-      delay: 0,
-      duration: 0.1,
+      delay: 0.6,
+      duration: 0.2,
       type: "tween",
     },
   },
@@ -323,6 +326,8 @@ function ResultsSlider({data, media, title, keyword}:ISliderProps) {
                 {
                   !clickedMovie.overview 
                   ? "API에서 데이터를 찾을 수 없습니다." 
+                  : clickedMovie.overview.length > 450
+                  ? clickedMovie.overview.slice(0, 450) + "..."
                   : clickedMovie.overview
                 }
               </BigOverview>

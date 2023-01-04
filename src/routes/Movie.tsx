@@ -7,6 +7,7 @@ import { Helmet } from "react-helmet";
 
 const Wrapper = styled.div`
   background: #070707;
+  overflow-y: hidden;
 `;
 
 const Loader = styled.div`

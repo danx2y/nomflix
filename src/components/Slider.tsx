@@ -10,19 +10,18 @@ import noImage from "../images/no-image.svg";
 const Wrapper = styled.div`
   position: relative;
   height: 300px;
-  overflow-x: hidden;
 `;
 
 const Title = styled.div`
   font-size: 24px;
   font-weight: 600;
-  margin: 0 0 20px 10px;
+  margin: 0 0.5vw 20px 0.5vw;
   color: ${(props) => props.theme.white.darker};
 `;
 
 const Row = styled(motion.div)`
   display: grid;
-  gap: 5px;
+  gap: 10px;
   grid-template-columns: repeat(6, 1fr);
   position: absolute;
   width: 100vw;
@@ -47,9 +46,13 @@ const Box = styled(motion.div)<{ bgphoto: string }>`
 const ArrowBtn = styled(motion.div)`
   position: absolute;
   background-color: #00000070;
-  height: 200px;
+  height: 50px;
   width: 50px;
-  right: 0;
+  border-radius: 25px;
+  border: solid 1px #ffffff50;
+  padding: 15px;
+  top: 120px;
+  right: 1vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -99,7 +102,6 @@ const BigMovie = styled(motion.div)`
   right: 0;
   margin: 0 auto;
   border-radius: 15px;
-  overflow: hidden;
   z-index: 2;
   box-shadow: 0 0 10px 3px #00000030;
   background: linear-gradient(45deg, #070707, #141414);
@@ -166,10 +168,10 @@ const boxVariants = {
     scale: 1,
   },
   hover: {
-    scale: 1.2,
-    y: -40,
+    scale: 1.1,
+    y: -20,
     transition: {
-      delay: 0,
+      delay: 0.3,
       duration: 0.5,
       type: "tween",
     },
@@ -180,8 +182,8 @@ const infoVariants = {
   hover: {
     opacity: 1,
     transition: {
-      delay: 0,
-      duration: 0.1,
+      delay: 0.6,
+      duration: 0.2,
       type: "tween",
     },
   },
@@ -195,7 +197,7 @@ interface ISliderProps {
   title: string;
 }
 
-function Slider({media, type, title}:ISliderProps) {
+function Slider({ media, type, title }:ISliderProps) {
   const { data } = useQuery<IFetchVideos>(
     [media, type],
     () => media === "movie" ? fetchMovies(type) : fetchPrograms(type)
@@ -289,6 +291,7 @@ function Slider({media, type, title}:ISliderProps) {
             <BigMovie
               style={{ top: scrollY.get() + 100 }}
               layoutId={title + "_" + bigMatch.params.movieId + "_" + type}
+              variants={boxVariants}
             >
               <BigCategory>
                 {!clickedMovie.release_date ? "" : <p>최초공개 {clickedMovie.release_date}</p>}
@@ -319,6 +322,8 @@ function Slider({media, type, title}:ISliderProps) {
                 {
                   !clickedMovie.overview 
                   ? "API에서 데이터를 찾을 수 없습니다." 
+                  : clickedMovie.overview.length > 450
+                  ? clickedMovie.overview.slice(0, 450) + "..."
                   : clickedMovie.overview
                 }
               </BigOverview>

@@ -20,7 +20,7 @@ const Wrapper = styled.form`
 
 const IconContainer = styled(motion.div)`
   background: ${(props) => props.theme.red};
-  padding: 17px;
+  padding: 16px;
   border: solid 1px #ffffff;
   cursor: pointer;
   svg {
