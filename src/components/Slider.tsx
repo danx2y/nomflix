@@ -114,6 +114,7 @@ const BigCover = styled.div<{ bgphoto: string }>`
   background-size: cover;
   background-position: center center;
   height: 400px;
+  border-radius: 15px 15px 0 0;
 `;
 
 const BigCategory = styled.div`
