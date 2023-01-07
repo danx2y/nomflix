@@ -7,7 +7,6 @@ import { Helmet } from "react-helmet";
 
 const Wrapper = styled.div`
   background: #070707;
-  overflow-y: hidden;
 `;
 
 const Loader = styled.div`
@@ -50,7 +49,7 @@ const Overview = styled.p`
 
 function Movie() {
   const { data, isLoading } = useQuery<IFetchVideos>(
-    ["movies", "nowPlaying"], 
+    ["movies", "nowPlaying"],
     () => fetchMovies("now_playing")
   );
   return (
@@ -64,7 +63,7 @@ function Movie() {
           <Loader>Loading...</Loader>
         ) : (
           <>
-            <Banner 
+            <Banner
               bgphoto={makeImagePath(data?.results[0].backdrop_path || "")}
             >
               <Title>{data?.results[0].title}</Title>
@@ -72,7 +71,11 @@ function Movie() {
             </Banner>
             <Slider media={"movie"} type={"now_playing"} title={"최신 영화"} />
             <Slider media={"movie"} type={"popular"} title={"인기 영화"} />
-            <Slider media={"movie"} type={"top_rated"} title={"최고평점 영화"} />
+            <Slider
+              media={"movie"}
+              type={"top_rated"}
+              title={"최고평점 영화"}
+            />
             <Slider media={"movie"} type={"upcoming"} title={"개봉예정 영화"} />
           </>
         )}
