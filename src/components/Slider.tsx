@@ -25,7 +25,8 @@ const Row = styled(motion.div)`
   gap: 10px;
   grid-template-columns: repeat(6, 1fr);
   position: absolute;
-  width: calc(100vw);
+  width: 100vw;
+  min-width: 1366px;
 `;
 
 const Box = styled(motion.div)<{ bgphoto: string }>`
@@ -52,7 +53,7 @@ const ArrowBtn = styled(motion.div)`
   border-radius: 25px;
   border: solid 1px #ffffff50;
   padding: 15px;
-  top: 120px;
+  top: 135px;
   right: 1vw;
   display: flex;
   justify-content: center;

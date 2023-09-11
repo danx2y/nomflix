@@ -11,16 +11,17 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.div`
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 600;
   margin: 0 0.5vw 20px 0.5vw;
   color: ${(props) => props.theme.white.darker};
   span {
     margin-left: 10px;
-    font-size: 20px;
+    font-size: 18px;
     ${(props) => props.theme.white.lighter};
-    font-weight: 800;
+    font-weight: 600;
   }
+  text-align: center;
 `;
 
 const Row = styled(motion.div)`
@@ -29,6 +30,7 @@ const Row = styled(motion.div)`
   grid-template-columns: repeat(6, 1fr);
   position: absolute;
   width: 100vw;
+  min-width: 1366px;
 `;
 
 const Box = styled(motion.div)<{ bgphoto: string }>`
@@ -55,7 +57,7 @@ const ArrowBtn = styled(motion.div)`
   border-radius: 25px;
   border: solid 1px #ffffff50;
   padding: 15px;
-  top: 120px;
+  top: 135px;
   right: 1vw;
   display: flex;
   justify-content: center;
@@ -114,7 +116,8 @@ const BigMovie = styled(motion.div)`
 
 const BigCover = styled.div<{ bgphoto: string }>`
   width: 100%;
-  background-image: linear-gradient(to bottom, #00000010, #141414), url(${(props) => props.bgphoto});
+  background-image: linear-gradient(to bottom, #00000010, #141414),
+    url(${(props) => props.bgphoto});
   background-size: cover;
   background-position: center center;
   height: 400px;
@@ -164,7 +167,7 @@ const BigOverview = styled.p`
   font-size: 18px;
   line-height: 1.8;
   font-style: italic;
-`
+`;
 
 const boxVariants = {
   normal: {
@@ -201,7 +204,7 @@ interface ISliderProps {
   keyword: string;
 }
 
-function ResultsSlider({data, media, title, keyword}:ISliderProps) {
+function ResultsSlider({ data, media, title, keyword }: ISliderProps) {
   const history = useHistory();
   const { scrollY } = useScroll();
   const [index, setIndex] = useState(0);
@@ -229,11 +232,19 @@ function ResultsSlider({data, media, title, keyword}:ISliderProps) {
   }, [keyword]);
   return (
     <>
-      <Wrapper style={{top: 20}}>
+      <Wrapper style={{ top: 20 }}>
         <Title>
           {title}
           <span>{data?.results.length}건</span>
         </Title>
+        <hr
+          style={{
+            border: 0,
+            height: "1px",
+            backgroundColor: "#ffffff99",
+            marginBottom: "20px",
+          }}
+        />
         <AnimatePresence initial={false}>
           <Row
             initial={{ x: width + 10 }}
@@ -241,7 +252,7 @@ function ResultsSlider({data, media, title, keyword}:ISliderProps) {
             exit={{ x: -width - 10 }}
             transition={{ type: "tween", duration: 1 }}
             key={index}
-          > 
+          >
             {data?.results
               .slice(offset * index, offset * index + offset)
               .map((movie: any) => (
@@ -253,32 +264,28 @@ function ResultsSlider({data, media, title, keyword}:ISliderProps) {
                   variants={boxVariants}
                   onClick={() => onBoxClicked(movie.id)}
                   transition={{ type: "tween" }}
-                  bgphoto={!movie.backdrop_path ? noImage : makeImagePath(movie.backdrop_path, "w500")}
+                  bgphoto={
+                    !movie.backdrop_path
+                      ? noImage
+                      : makeImagePath(movie.backdrop_path, "w500")
+                  }
                 >
                   <Info variants={infoVariants}>
                     <h4>
-                      {
-                        media === "movie" 
-                        ? movie.title 
+                      {media === "movie"
+                        ? movie.title
                         : media === "program"
-                        ? movie.name 
-                        : "API에서 데이터를 찾을 수 없습니다."
-                      }
+                        ? movie.name
+                        : "API에서 데이터를 찾을 수 없습니다."}
                     </h4>
                   </Info>
                 </Box>
-              ))
-            }
+              ))}
           </Row>
-          {maxIndex > 0 && ( 
+          {maxIndex > 0 && (
             <ArrowBtn onClick={incraseIndex}>
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                viewBox="0 0 384 512"
-              >
-                <path 
-                  d="M342.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L274.7 256 105.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"
-                />
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                <path d="M342.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L274.7 256 105.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z" />
               </svg>
             </ArrowBtn>
           )}
@@ -293,51 +300,57 @@ function ResultsSlider({data, media, title, keyword}:ISliderProps) {
               animate={{ opacity: 1 }}
             />
             {clickedMovie && (
-            <BigMovie
-              style={{ top: scrollY.get() + 100 }}
-              layoutId={title + "_" + bigMatch.params.movieId}
-            >
-              <BigCategory>
-                {!clickedMovie.release_date ? "" : <p>최초공개 {clickedMovie.release_date}</p>}
-                {!clickedMovie.vote_average ? "" : <p>평점 {clickedMovie.vote_average}</p>}
-              </BigCategory>
-              <BigCover
-                bgphoto={!clickedMovie.backdrop_path ? noImage : makeImagePath(clickedMovie.backdrop_path, "w780")}
-              />
-              <BigTitle>
-                {
-                  media === "movie" 
-                  ? clickedMovie.title 
-                  : media === "program"
-                  ? clickedMovie.name 
-                  : "API에서 데이터를 찾을 수 없습니다."
-                }
-                <p>
-                  {
-                    media === "movie" 
-                    ? clickedMovie.original_title 
-                    : media === "program"
-                    ? clickedMovie.original_name 
-                    : "API에서 데이터를 찾을 수 없습니다."
+              <BigMovie
+                style={{ top: scrollY.get() + 100 }}
+                layoutId={title + "_" + bigMatch.params.movieId}
+              >
+                <BigCategory>
+                  {!clickedMovie.release_date ? (
+                    ""
+                  ) : (
+                    <p>최초공개 {clickedMovie.release_date}</p>
+                  )}
+                  {!clickedMovie.vote_average ? (
+                    ""
+                  ) : (
+                    <p>평점 {clickedMovie.vote_average}</p>
+                  )}
+                </BigCategory>
+                <BigCover
+                  bgphoto={
+                    !clickedMovie.backdrop_path
+                      ? noImage
+                      : makeImagePath(clickedMovie.backdrop_path, "w780")
                   }
-                </p>
-              </BigTitle>
-              <BigOverview>
-                {
-                  !clickedMovie.overview 
-                  ? "API에서 데이터를 찾을 수 없습니다." 
-                  : clickedMovie.overview.length > 450
-                  ? clickedMovie.overview.slice(0, 450) + "..."
-                  : clickedMovie.overview
-                }
-              </BigOverview>
-            </BigMovie>
-          )}
-        </>
-      )}
+                />
+                <BigTitle>
+                  {media === "movie"
+                    ? clickedMovie.title
+                    : media === "program"
+                    ? clickedMovie.name
+                    : "API에서 데이터를 찾을 수 없습니다."}
+                  <p>
+                    {media === "movie"
+                      ? clickedMovie.original_title
+                      : media === "program"
+                      ? clickedMovie.original_name
+                      : "API에서 데이터를 찾을 수 없습니다."}
+                  </p>
+                </BigTitle>
+                <BigOverview>
+                  {!clickedMovie.overview
+                    ? "API에서 데이터를 찾을 수 없습니다."
+                    : clickedMovie.overview.length > 450
+                    ? clickedMovie.overview.slice(0, 450) + "..."
+                    : clickedMovie.overview}
+                </BigOverview>
+              </BigMovie>
+            )}
+          </>
+        )}
       </AnimatePresence>
     </>
-  )
+  );
 }
 
 export default ResultsSlider;

@@ -1,9 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from "react";
+import ReactDOM from "react-dom/client";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
-import App from './App';
+import App from "./App";
 import { RecoilRoot } from "recoil";
-import { ReactQueryDevtools } from 'react-query/devtools';
+import { ReactQueryDevtools } from "react-query/devtools";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { theme } from "./theme";
 
@@ -12,7 +12,6 @@ import NanumsquareNeoB from "./fonts/NanumSquareNeoTTF-bRg.woff2";
 import NanumsquareNeoC from "./fonts/NanumSquareNeoTTF-cBd.woff2";
 import NanumsquareNeoD from "./fonts/NanumSquareNeoTTF-dEb.woff2";
 import NanumsquareNeoE from "./fonts/NanumSquareNeoTTF-eHv.woff2";
- 
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -95,6 +94,7 @@ const GlobalStyle = createGlobalStyle`
     background-color: #141414;
     line-height: 1;
     overflow-x: hidden;
+    min-width: 1366px;
   }
   a {
     text-decoration: none;
@@ -103,7 +103,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 
 const client = new QueryClient();

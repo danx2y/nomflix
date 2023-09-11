@@ -28,7 +28,7 @@ const Banner = styled.div<{ bgphoto: string }>`
 `;
 
 const Title = styled.h2`
-  font-size: 100px;
+  font-size: 90px;
   font-weight: 1000;
   margin-bottom: 20px;
   text-align: center;
@@ -38,7 +38,7 @@ const Title = styled.h2`
 `;
 
 const Overview = styled.p`
-  font-size: 20px;
+  font-size: 18px;
   padding: 0 25%;
   line-height: 1.8;
   font-style: italic;
@@ -49,7 +49,7 @@ const Overview = styled.p`
 
 function Program() {
   const { data, isLoading } = useQuery<IFetchVideos>(
-    ["programs", "topRated"], 
+    ["programs", "topRated"],
     () => fetchPrograms("top_rated")
   );
   return (
@@ -63,16 +63,36 @@ function Program() {
           <Loader>Loading...</Loader>
         ) : (
           <>
-            <Banner 
+            <Banner
               bgphoto={makeImagePath(data?.results[2].backdrop_path || "")}
             >
               <Title>{data?.results[2].name}</Title>
-              <Overview>{data?.results[2].overview}</Overview>
+              <Overview>
+                {data && data.results[0].overview.length > 200
+                  ? data.results[0].overview.slice(0, 200) + "..."
+                  : data?.results[0].overview}
+              </Overview>
             </Banner>
-            <Slider media={"program"} type={"on_the_air"} title={"현재 방영 프로그램"} />
-            <Slider media={"program"} type={"airing_today"} title={"오늘 방영 프로그램"} />
-            <Slider media={"program"} type={"top_rated"} title={"최고평점 프로그램"} />
-            <Slider media={"program"} type={"popular"} title={"인기 프로그램"} />
+            <Slider
+              media={"program"}
+              type={"on_the_air"}
+              title={"현재 방영 프로그램"}
+            />
+            <Slider
+              media={"program"}
+              type={"airing_today"}
+              title={"오늘 방영 프로그램"}
+            />
+            <Slider
+              media={"program"}
+              type={"top_rated"}
+              title={"최고평점 프로그램"}
+            />
+            <Slider
+              media={"program"}
+              type={"popular"}
+              title={"인기 프로그램"}
+            />
           </>
         )}
       </Wrapper>

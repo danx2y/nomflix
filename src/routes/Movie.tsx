@@ -28,7 +28,7 @@ const Banner = styled.div<{ bgphoto: string }>`
 `;
 
 const Title = styled.h2`
-  font-size: 100px;
+  font-size: 90px;
   font-weight: 1000;
   margin-bottom: 20px;
   text-align: center;
@@ -38,7 +38,7 @@ const Title = styled.h2`
 `;
 
 const Overview = styled.p`
-  font-size: 20px;
+  font-size: 18px;
   padding: 0 25%;
   line-height: 1.8;
   font-style: italic;
@@ -67,7 +67,11 @@ function Movie() {
               bgphoto={makeImagePath(data?.results[0].backdrop_path || "")}
             >
               <Title>{data?.results[0].title}</Title>
-              <Overview>{data?.results[0].overview}</Overview>
+              <Overview>
+                {data && data.results[0].overview.length > 200
+                  ? data.results[0].overview.slice(0, 200) + "..."
+                  : data?.results[0].overview}
+              </Overview>
             </Banner>
             <Slider media={"movie"} type={"now_playing"} title={"최신 영화"} />
             <Slider media={"movie"} type={"popular"} title={"인기 영화"} />
